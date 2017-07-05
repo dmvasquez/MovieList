@@ -1,0 +1,21 @@
+<div style="margin-left: 21%; margin-right: 1%; margin-top: 5%;">
+    <h1>Create New Movie List!</h1>
+	<form>
+		<div class="form-group container">
+			<div class="input-group col-md-6">
+				<input ng-model="listViewCtrl.newList.title" type="text" name="" placeholder="List Name" class="form-control">
+                <span class="input-group-btn">
+					<button type="submit" ng-click="listViewCtrl.createList()" class="btn btn-success">Create Now!</button>
+				</span>
+			</div>
+		</div>
+	</form>
+
+    <div class="panel panel-default col-md-4" style="margin: auto;" ng-repeat="list in listViewCtrl.allLists" ui-sref="listdetailsview({id:{{list.listId}}})">
+        <div class="panel-body">
+             {{list.title}} <br>
+             Movies: {{list.numberOfMovies}}<br>
+             Average Rating: {{list.averageRating}} stars
+        </div>
+    </div>
+</div>

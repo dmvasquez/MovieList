@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="" ng-app="movie-list">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Movie List</title>
+
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+		<!-- Main CSS -->
+		<link rel="stylesheet" href="CSS/main.css">
+		<!-- Toastr -->
+		<link rel="stylesheet" href="bower_components/angular-toastr/dist/angular-toastr.css"/>
+	</head>
+	<body ng-controller="DashboardController as dash">
+		<!-- LOGIN DIVS -->
+		<div ng-if="true" style="top: 25%; left: 25%; position: absolute;">
+			<!-- SIGN IN PAGE -->
+			<div class="container">
+				<div id="loginbox" class="mainbox col-md-6 col-sm-8 col-sm-offset-1">
+					<div class="panel panel-info">
+						<div class="panel-heading" style="background-color: #90AFC5; color: white">
+							<div class="panel-title">Please Sign In</div>
+						</div>
+						<div style="padding-top:30px" class="panel-body">
+							<div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
+							<form id="loginform" class="form-horizontal" role="form" ng-submit="dash.login()">
+								<div style="margin-bottom: 25px" class="input-group">
+									<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+									<input id="login-username" type="text" class="form-control" name="username" ng-model="dash.inputEmail" value="" placeholder="email">
+								</div>
+								<div style="margin-bottom: 25px" class="input-group">
+									<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+									<input id="login-password" ng-model="dash.inputPassword" type="password" class="form-control" name="password" placeholder="password">
+								</div>
+								<div style="margin-top:10px" class="form-group">
+									<!-- Button -->
+									<div class="col-sm-12 controls">
+
+										<button onclick="" type="submit" class="btn btn-success">Login  </button>
+
+									</div>
+								</div>
+								<!-- <div class="form-group">
+									<div class="col-md-12 control">
+										<div style="border-top: 1px solid#888; padding-top:15px; font-size:85%">
+											Don't have an account!
+											<a href="#" onClick="$('#loginbox').hide(); $('#signupbox').show();">
+														Sign Up Here
+													</a>
+										</div>
+									</div>
+								</div> -->
+							</form>
+						</div>
+					</div>
+				</div>
+				<!-- SIGN UP PAGE -->
+				<!-- <div id="signupbox" class="mainbox col-md-6 col-sm-8 col-sm-offset-1">
+					<div class="panel panel-info">
+						<div class="panel-heading" style="background-color: #00937F">
+							<div class="panel-title" style="color:white">Sign Up</div>
+							<div style="float:right; font-size: 85%; position: relative; top:-10px"><a id="signinlink" href="#" onclick="$('#signupbox').hide(); $('#loginbox').show()" style="color:white">Sign In</a></div>
+						</div>
+						<div class="panel-body">
+							<form class="form-horizontal" role="form" ng-submit="loginCtrl.register()">
+								<div class="form-group">
+									<label for="email" class="col-md-3 control-label">Email</label>
+									<div class="col-md-9">
+										<input type="email" class="form-control" name="email" placeholder="Email Address" ng-model="loginCtrl.registration.emailAddress">
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="firstname" class="col-md-3 control-label">First Name</label>
+									<div class="col-md-9">
+										<input type="text" class="form-control" name="firstname" placeholder="First Name" ng-model="loginCtrl.registration.firstName">
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="lastname" class="col-md-3 control-label">Last Name</label>
+									<div class="col-md-9">
+										<input type="text" class="form-control" name="lastname" placeholder="Last Name" ng-model="loginCtrl.registration.lastName">
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="password" class="col-md-3 control-label">Password</label>
+									<div class="col-md-9">
+										<input type="password" class="form-control" name="passwd" placeholder="At least 8 characters" ng-model="loginCtrl.registration.password">
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="password" class="col-md-3 control-label">Confirm Password</label>
+									<div class="col-md-9">
+										<input type="password" class="form-control" name="passwd" placeholder="At least 8 characters" ng-model="loginCtrl.registration.confirmPassword">
+									</div>
+								</div>
+								<div class="form-group">
+									<!-- Button --
+									<div class="col-md-offset-3 col-md-9">
+										<button id="btn-signup" type="submit" class="btn btn-info" style="background-color: #EA6100; border-color: #EA6100"><i class="icon-hand-right"></i>Sign Up</button>
+									</div>
+								</div>
+
+							</form>
+						</div>
+					</div>
+				</div> -->
+			</div>
+
+		</div>
+
+		<!-- Dashboard -->
+		<div id="dash" style="display: none" class="ng-cloak">
+			<!--color scheme: lightblue: #90AFC5 ; darkblue: #336B87 ; grey: #2A3132-->
+			<!-- Navbar -->
+			<div class="navbar navbar-fixed-top" style="background-color:#90AFC5;">
+				<div class="container-fluid">
+					<a class="navbar-brand" style="color: #2A3132">Movie List</a>
+					<ul class="nav navbar-nav">
+						<li class="active">
+							<a ui-sref="listview" style="color: #2A3132">My Lists</a>
+						</li>
+						<li>
+							<a ui-sref="searchview" style="color: #2A3132">Search Movies!</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		<!-- NEED TO ADD SIDE PROFILE OF USER TO DEFAULT HTML -->
+			<div id="mySidenav" class="sidenav" style="background-color: #336B87">
+				<div style="display: block; margin: 2em 2em;">
+					<img src="https://avatars0.githubusercontent.com/u/23320683?v=3&s=460" alt="profile icon" class="img-circle img-resposive" style="height:225px; margin: auto; display: block;">
+				</div>
+				<div style="margin: auto; text-align: center; color: white;">{{dash.name}}</div>
+				<div style="margin: auto; text-align: center; color: white;">Number Of Current Lists: {{dash.numberOfLists}}</div>
+				<div value="{{dash.userId}}" ></div>
+			</div>	
+		<!-- UI View Router -->
+			<div ui-view></div>
+		<!-- Footer -->
+		</div>
+		<!-- Angular.js -->
+	    <script src="bower_components/angular/angular.js"></script>
+		<!-- jQuery -->
+		<script src="bower_components/jquery/dist/jquery.js"></script>
+		<!-- Bootstrap JavaScript -->
+		<script src= "bower_components/bootstrap/dist/js/bootstrap.js"></script>
+		<!--Toastr-->
+	    <script src="bower_components/angular-toastr/dist/angular-toastr.tpls.js"></script>
+ 		<!--Angular-UI-Router-->
+ 		<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+ 		<!--JavaScript Files-->
+	    <script src="app/app.module.js"></script>
+
+	    <script src="app/dashboard/dashboardController.js"></script>
+		<script src="app/listdetailsview/listDetailsViewController.js"></script>
+		<script src="app/listview/listViewController.js"></script>
+		<script src="app/searchview/searchViewController.js"></script>
+
+		<script src="app/core/movie.factory.js"></script>
+		<script src="app/core/user.factory.js"></script>
+		<script src="app/core/list.factory.js"></script>
+		<script src="app/core/details.factory.js"></script>
+	</body>
+</html>
